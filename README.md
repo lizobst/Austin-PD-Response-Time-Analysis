@@ -87,7 +87,8 @@ The boxplot illustrates response times across priority levels, highlighting sign
 - Priority 0, on the other hand, has the shortest and least variable response times, showing a more consistent pattern of rapid responses.  
 This visual reinforces the findings from the Kruskal-Wallis and Dunn’s tests, with clear differences in response time distributions across priority levels.
 
-**Correlation**
+**Correlation**  
+
 Spearman’s correlation was used due to the non-normality of the data.  
 - Priority Level had the strongest positive correlation with Response Time (ρ = 0.467), indicating that lower-priority incidents tend to have longer response times.  
 - Number of Units Arrived showed a negative correlation (ρ = -0.36), suggesting that more responding units are associated with shorter response times.  
@@ -109,24 +110,15 @@ Overall, the results indicate substantial variation in response times between se
 
 #### Crime
 
-change in crime over time
 ![newplot (5)](https://github.com/user-attachments/assets/593601b1-8910-4808-829f-d73cf20eed2d)
 
-avg crimes by day of week
-![newplot (6)](https://github.com/user-attachments/assets/9e654d43-f511-4391-ae1b-5d916339c0d0)
+Crime over time: The year 2005 saw the highest number of crimes, standing out as the peak year. Another significant spike occurred in 2012, reaching around 800 crimes. Since then, crime numbers have generally declined, with 2022 recording the lowest crime count of the period.
 
-Crime count by sector
-![newplot](https://github.com/user-attachments/assets/20b9d843-302d-47a2-866f-671dcf1e2113)
-
-10 most common crimes
 ![newplot (11)](https://github.com/user-attachments/assets/9e9902f6-9025-4c9c-91da-482e0c42bdc9)
+Common crimes: Family disturbances had the highest number of incidents by a wide margin. The second most frequent crime type had 826 incidents, while most other categories ranged between 660 and 462 incidents.
 
-top 3 crimes by sector
-![newplot (4)](https://github.com/user-attachments/assets/e040fa35-f29d-4bf4-a48f-ed6fa32e707a)
-
-number of incidents by priority level
 ![newplot (10)](https://github.com/user-attachments/assets/eb319286-0a0f-4ed3-9f39-28fec58b808b)
-
+Distribution of crime: The distribution of incidents shows that Priority Levels 0 and 3 have the fewest incidents, Priority Level 1 has a moderate number, while Priority Level 2 has the highest count of incidents.
 
 
 #### Response Time
@@ -134,13 +126,17 @@ number of incidents by priority level
 avg response time over years
 ![newplot (8)](https://github.com/user-attachments/assets/f04fa824-bac6-4f04-8078-1c778a556882)
 
-avg response time per day of week
-![newplot (9)](https://github.com/user-attachments/assets/d96e7268-35b5-4be7-b27e-4bfaa870d915)
 
 percentage response time by year
 ![newplot (12)](https://github.com/user-attachments/assets/78943f8c-e464-4218-8a66-ec301fd5149d)
 
 #### Sectors
+
+![newplot](https://github.com/user-attachments/assets/20b9d843-302d-47a2-866f-671dcf1e2113)
+Crime by Sector: Edward and David sectors reported the highest number of crimes, likely due to their larger populations and expansive areas. In contrast, Airport and George sectors had the lowest crime counts, correlating with their smaller populations and smaller areas.
+
+top 3 crimes by sector
+![newplot (4)](https://github.com/user-attachments/assets/e040fa35-f29d-4bf4-a48f-ed6fa32e707a)
 
 Distribution of priority levels by sector
 ![newplot (1)](https://github.com/user-attachments/assets/e497d629-49ff-4741-8c0c-c0952c712874)
