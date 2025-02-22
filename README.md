@@ -4,10 +4,10 @@ For this project, Austin Police Department (APD) response times were analyzed to
 #### Factors Affecting Response Time
 Several factors influence police response times, including:
 
-Call Priority: Higher-priority calls, such as violent crimes in progress, typically receive faster response times than lower-priority incidents like property damage or noise complaints.  
-Time of Day: Response times may vary based on peak call volumes, with potential delays during high-traffic periods or late-night hours.
+**Call Priority:** Higher-priority calls, such as violent crimes in progress, typically receive faster response times than lower-priority incidents like property damage or noise complaints.  
+**Time of Day:** Response times may vary based on peak call volumes, with potential delays during high-traffic periods or late-night hours.
 Location and Geography: The distribution of police units across the city, distance from the nearest patrol car, and accessibility of an area (urban vs. suburban) impact response efficiency.  
-Traffic Conditions: Heavy congestion, road closures, and accidents can delay officers en route to a call.  
+**Traffic Conditions:** Heavy congestion, road closures, and accidents can delay officers en route to a call.  
 Staffing and Resource Allocation: The number of available officers and dispatch efficiency influence how quickly units can be assigned and deployed.  
 
 #### Objective
@@ -22,54 +22,45 @@ The objective of this project is to identify patterns in APD response times by a
 The primary data source for this analysis is the [Austin Police Department (APD)](https://data.austintexas.gov/), which provides publicly available records on emergency response times, APD info, crime data, and other relevant variables. 
 
 ### Data Preparation
-Datasets providing information specific to APD response time as well as APD crime data utilized for this analysis. Datasets were joined utilizing Incident ID. Irrelevant columns were removed in order to simplify the analysis. 
+The datasets used in this analysis include APD response time data and APD crime data. These datasets were merged using the Incident ID field. To streamline the analysis, irrelevant columns were removed.
 
-Years 2003 and 2025 were removed due to their incompleteness. The analysis spans years 2004-2024. Rows missing response time were deleted. Outliers were calculated but ultimately not removed due to the nature of the subject and the fact that they could highlight an issue with response time. 
+Data from the years 2003 and 2025 were excluded due to incompleteness, resulting in an analysis spanning 2004–2024. Rows with missing response time values were deleted. While outliers were identified, they were ultimately retained, as they may reflect significant anomalies in response time rather than data errors.
 
-New variables were calculated in order to analyze the data. Variable calculations include calculating response time per sector, priority by sector, avg response time, response percentage above goal.
+Several new variables were created to enhance the analysis. These include response time per sector, priority by sector, average response time, and the percentage of responses exceeding the goal.
 
 ### Exploratory Data Analysis
 
 #### Summary Statistics
-Response Time(s):
-- count    14780.000000
-- mean      1429.287957
-- std       2835.410496
-- min          6.000000
-- 25%        351.750000
-- 50%        594.000000
-- 75%       1198.000000
-- max      60689.000000
+
+Response time:
+The response time variable was analyzed to understand its distribution and variability. The dataset includes 14,780 observations.
+
+- The mean response time is approximately 1,429 seconds (about 24 minutes), but the median response time is 594 seconds (about 10 minutes). The difference between the mean and median suggests a right-skewed distribution, likely influenced by extreme outliers.  
+- The minimum response time recorded is 6 seconds, while the maximum is 60,689 seconds (approximately 16.9 hours), indicating potential extreme delays in some cases.  
+- The 25th percentile (Q1) is 352 seconds (~6 minutes), and the 75th percentile (Q3) is 1,198 seconds (~20 minutes), meaning that 50% of calls had a response time between 6 and 20 minutes.  
+- The standard deviation is 2,835 seconds (~47 minutes), highlighting a high degree of variability in response times.  
+- The presence of extreme outliers suggests that while most incidents have a relatively quick response time, some cases experience significantly longer delays.  
+  
+These findings indicate that while typical response times are under 20 minutes, a subset of incidents experiences much longer delays, which could warrant further investigation into factors affecting response efficiency.
 
 Response Time(s) per Sector:
-	
-**Sector**  **mean** **median**	 **std**	  **min** **max**  **count**						
-Adam	    1426.975580	  610.5	  2602.180187	  21.0	 37331.0	 1638  
-Airport	  348.816667	  240.0	  374.887479	  42.0 	 3315.0	   120  
-Baker	    1245.080757	  572.0	  2146.927873	  52.0	 23297.0	 1585  
-Charlie	  1390.431942	  630.0	  2351.008342	  34.0	 28937.0	 1653  
-David	    1028.617898	  571.0	  1580.601944	  6.0	   23194.0	 1989  
-Edward	  2295.286646	  749.0	  4704.788163	  7.0	   60689.0	 2299  
-Frank	    1289.965366	  587.0	  2242.236927	  7.0	   23872.0	 1819  
-George	  868.389381	  389.5	  1564.728145	  32.0	 20786.0	 678  
-Henry	    1476.767908	  604.0	  2916.393306	  16.0	 47192.0	 1396  
-Ida	      1343.872115	  552.0	  2533.675768	  41.0	 32996.0	 1603  
+Response times vary significantly across sectors:
+
+- Fastest Response: The Airport sector has the shortest mean (349 sec, ~6 min) and median (240 sec, ~4 min) response times, likely due to its controlled environment.
+- Slowest Response: The Edward sector has the longest mean (2,295 sec, ~38 min) and highest variability (std = 4,705 sec, ~78 min), with a maximum response time of ~16.9 hours, indicating potential inefficiencies.
+- High Variability: Sectors like Henry and Edward show large gaps between mean and median times, suggesting outliers significantly impact average response times.
+- Right-Skewed Distribution: Most sectors have higher means than medians, indicating that while typical response times are reasonable, extreme delays exist.
+  
+These findings highlight sector-specific response inefficiencies and areas for improvement in emergency response management.
 
 Average Response Time(s) by Priority Level:
 - Priority 0 = 427.942117
 - Priority 1 = 540.269308
 - Priority 2 = 1171.389359
 - Priority 3 = 3597.243970
+  
+This trend aligns with expected emergency response protocols, where higher-priority incidents receive faster responses. The gap between Priority 2 and 3 suggests potential inefficiencies in handling lower-priority calls.
 
-Average Response Time(s) by Day of the Week:
-- count       7.000000
-- mean     1432.181636
-- std        91.187542
-- min      1319.055779
-- 25%      1371.875770
-- 50%      1397.910251
-- 75%      1499.963659
-max      1564.626566
 
 #### Statistical Analysis
 
@@ -80,72 +71,37 @@ max      1564.626566
 
 **Test for Normality and Homogeniety**
 
-Shapiro-Wilk test and Levene's test calculated to determine normality and homogeniety of variance for Response Time and Priority Level. Results were a p-value of 0 for all tests indicating assumptions are violated for normality and homogeneity of variance. Non-parametric testing will need to be utilized.
+The Shapiro-Wilk test (normality) and Levene’s test (homogeneity of variance) were conducted for Response Time and Priority Level. Both tests returned p-values of 0, indicating significant violations of normality and equal variance assumptions. As a result, non-parametric methods will be used for further analysis.
 
 **Significant Differences**
 
-Kruskal-Wallis p-value = 0.
-
-Dunn's Test results:
-               0              1              2              3  
-0   1.000000e+00   1.922782e-15  1.675209e-174   0.000000e+00  
-1   1.922782e-15   1.000000e+00  5.049597e-118   0.000000e+00  
-2  1.675209e-174  5.049597e-118   1.000000e+00  7.503423e-243  
-3   0.000000e+00   0.000000e+00  7.503423e-243   1.000000e+00  
-
-All response times have highly significant differences between each other.
-
-**Correlation**
-Correlation was calculated using Spearman's correlation due to the non normality of the data. Priority Level had the highest positive correlation to Response Time (0.467). Number of Units Arrived had a negative correlation with Response Time (-0.36). All other correlations to Response Time were very weak.
+The Kruskal-Wallis test returned a p-value of 0, confirming significant differences in response times across priority levels.  
+Dunn’s post hoc test further supports this, with all pairwise comparisons showing highly significant differences (p < 0.05). This indicates that response times vary substantially between each priority level, reinforcing the need for priority-based response time optimization.
 
 **Boxplot**
 ![image](https://github.com/user-attachments/assets/b26dc865-1e88-4c21-a22d-c03ef0116b97)
 
+The boxplot illustrates response times across priority levels, highlighting significant differences in both central tendency and variability.  
+- The mean response time increases as the priority level decreases, with Priority 3 exhibiting the highest response times.
+- Priority 3 shows the greatest variability, indicated by the wide interquartile range (IQR) and several potential outliers, reflecting more extreme response times.
+- Priority 0, on the other hand, has the shortest and least variable response times, showing a more consistent pattern of rapid responses.  
+This visual reinforces the findings from the Kruskal-Wallis and Dunn’s tests, with clear differences in response time distributions across priority levels.
+
+**Correlation**
+Spearman’s correlation was used due to the non-normality of the data.  
+- Priority Level had the strongest positive correlation with Response Time (ρ = 0.467), indicating that lower-priority incidents tend to have longer response times.  
+- Number of Units Arrived showed a negative correlation (ρ = -0.36), suggesting that more responding units are associated with shorter response times.  
+- All other variables had very weak correlations with response time, indicating minimal influence.  
+These findings highlight the impact of incident priority and resource allocation on response efficiency.
+
 
 **Response Time and Sectors:**
 
-Kruskal-Wallis p-value: 1.5892233294861043e-82
-
-Dunn's Test results:
-             Adam       Airport         Baker       Charlie         David  \
-Adam     1.000000e+00  4.858165e-29  1.011209e-01  9.872688e-01  9.128417e-04   
-Airport  4.858165e-29  1.000000e+00  4.488067e-26  4.992431e-29  7.097834e-24   
-Baker    1.011209e-01  4.488067e-26  1.000000e+00  1.036757e-01  1.162920e-01   
-Charlie  9.872688e-01  4.992431e-29  1.036757e-01  1.000000e+00  9.407764e-04   
-David    9.128417e-04  7.097834e-24  1.162920e-01  9.407764e-04  1.000000e+00   
-Edward   2.009350e-10  1.738496e-41  7.104378e-16  1.607625e-10  5.197827e-25   
-Frank    1.725362e-01  7.387383e-27  7.422799e-01  1.766965e-01  4.790183e-02   
-George   8.646147e-25  2.851443e-09  2.922701e-19  8.514047e-25  7.110201e-16   
-Henry    2.883812e-01  8.906900e-27  6.029737e-01  2.943630e-01  3.927506e-02   
-Ida      5.540310e-03  3.436446e-24  2.625235e-01  5.706411e-03  6.943164e-01   
-
-               Edward         Frank        George         Henry           Ida  
-Adam     2.009350e-10  1.725362e-01  8.646147e-25  2.883812e-01  5.540310e-03  
-Airport  1.738496e-41  7.387383e-27  2.851443e-09  8.906900e-27  3.436446e-24  
-Baker    7.104378e-16  7.422799e-01  2.922701e-19  6.029737e-01  2.625235e-01  
-Charlie  1.607625e-10  1.766965e-01  8.514047e-25  2.943630e-01  5.706411e-03  
-David    5.197827e-25  4.790183e-02  7.110201e-16  3.927506e-02  6.943164e-01  
-Edward   1.000000e+00  9.390250e-16  7.744997e-54  5.978333e-13  1.215114e-20  
-Frank    9.390250e-16  1.000000e+00  5.417500e-21  8.266563e-01  1.366535e-01  
-George   7.744997e-54  5.417500e-21  1.000000e+00  3.486542e-20  4.647330e-16  
-Henry    5.978333e-13  8.266563e-01  3.486542e-20  1.000000e+00  1.083500e-01  
-Ida      1.215114e-20  1.366535e-01  4.647330e-16  1.083500e-01  1.000000e+00  
-
-Adam and Airport: p-value = 5.86e-29 (significant difference)
-Adam and David: p-value = 8.63e-04 (significant difference)
-Adam and Edward: p-value = 7.48e-11 (significant difference)
-Airport and David: p-value = 8.23e-24 (significant difference)
-Airport and Edward: p-value = 1.36e-41 (significant difference)
-Baker and Airport: p-value = 5.27e-26 (significant difference)
-Charlie and David: p-value = 3.40e-04 (significant difference)
-Charlie and Edward: p-value = 2.81e-10 (significant difference)
-David and Edward: p-value = 7.97e-26 (significant difference)
-Frank and George: p-value = 5.96e-21 (significant difference)
-George and Edward: p-value = 1.72e-54 (significant difference)
-George and Henry: p-value = 1.60e-20 (significant difference)
-Ida and Adam: p-value = 9.45e-03 (significant difference)
-Ida and Airport: p-value = 1.87e-24 (significant difference)
-Ida and Edward: p-value = 1.65e-20 (significant difference)
+The Kruskal-Wallis test returned a p-value of 1.59e-82, indicating significant differences in response times across sectors.  
+Dunn’s post-hoc test revealed significant pairwise differences in most sector comparisons. For example:  
+- Adam and Airport (p < 0.05), Adam and Edward (p < 0.05), and Charlie and David (p < 0.05) show highly significant differences.
+- Baker and Charlie (p ≈ 0.1) and Henry and Ida (p ≈ 0.1) showed weaker differences.  
+Overall, the results indicate substantial variation in response times between sectors, with several pairwise comparisons showing strong statistical significance.
 
 
 
